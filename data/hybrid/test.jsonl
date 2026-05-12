@@ -1,0 +1,5 @@
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "尺码：XL\n积分抵扣\n限时秒杀\n人气单品\n人气单品\n颜色：曜石黑\n仅剩3件\n领券立减"}], "images": ["images/test_0000.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "假一赔十\n重量：200g\n即将售罄\n颜色：曜石黑\n设计师联名款，融合东方美学与现代工艺，彰显独特品味。\n会员专享"}], "images": ["images/test_0001.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "新品上市\n分享\n第二件半价\n积分抵扣\n正品保证\n颜色：曜石黑\n领券立减\n直降500元"}], "images": ["images/test_0002.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "收藏\n假一赔十\n用户评价\n直降500元\n买二送一"}], "images": ["images/test_0003.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "领券立减\n店长力荐\n分享\n爆款推荐"}], "images": ["images/test_0004.jpg"]}
