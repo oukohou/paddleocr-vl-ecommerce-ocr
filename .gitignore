@@ -1,0 +1,36 @@
+# 模型权重与输出
+outputs/
+models/
+checkpoints/
+*.safetensors
+*.bin
+*.pt
+*.pth
+
+# 数据集（大文件）
+data/images/
+data/synthetic/images/
+*.tar
+*.zip
+
+# 日志
+*.log
+visualdl_logs/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# 系统文件
+.DS_Store
+Thumbs.db
+paddleformers-guide/
