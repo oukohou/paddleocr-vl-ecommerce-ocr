@@ -28,3 +28,73 @@
 {"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "新品上市\n更多推荐\n新品上市\n颜色：曜石黑"}], "images": ["images/train_0027.jpg"]}
 {"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "尺码：XL\n爆款推荐\n用户评价\n分享"}], "images": ["images/train_0028.jpg"]}
 {"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "售后无忧\n立即购买\n仅剩3件\n买二送一\n爆款推荐"}], "images": ["images/train_0029.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "查看详情\n通过国家质量认证，符合ISO9001国际标准，安全放心。\n买二送一\n优惠券\n即将售罄\n买二送一\n直降500元"}], "images": ["images/train_0030.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "满199减50\n爆款推荐\n极速发货\n7天无理由退换\nCPU：骁龙8 Gen3"}], "images": ["images/train_0031.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "尺码：XL\n源自德国工艺，传承百年匠心，每一个细节都精益求精。\n本产品采用进口原材料，经过108道工序精心打造，品质卓越。\n重量：200g\n分享\n正品保证\n买二送一\n分享"}], "images": ["images/train_0032.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "立即购买\n人气单品\n正品保证\n尺码：XL\n存储：512GB\n颜色：曜石黑"}], "images": ["images/train_0033.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "源自德国工艺，传承百年匠心，每一个细节都精益求精。\n用户评价\n分享\n积分抵扣\n通过国家质量认证，符合ISO9001国际标准，安全放心。\n买二送一\n会员专享\n5000mAh大电池，支持120W超级快充，续航无忧。\n通过国家质量认证，符合ISO9001国际标准，安全放心。"}], "images": ["images/train_0034.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "库存紧张\n5000mAh大电池，支持120W超级快充，续航无忧。\n收藏\n屏幕：6.7英寸\n极速发货\n新品上市\n爆款推荐\n重量：200g\n人气单品"}], "images": ["images/train_0035.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "7天无理由退换\n存储：512GB\n新品上市\n商品问答\n通过国家质量认证，符合ISO9001国际标准，安全放心。\n售后无忧"}], "images": ["images/train_0036.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "存储：512GB\n倒计时23:59:59\n假一赔十\n正品保证\n存储：512GB\n领券立减\n领券立减\n屏幕：6.7英寸"}], "images": ["images/train_0037.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "商品问答\n通过国家质量认证，符合ISO9001国际标准，安全放心。\n人气单品\n直降500元"}], "images": ["images/train_0038.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "材质：纯棉\n商品问答\n立即购买\n5000mAh大电池，支持120W超级快充，续航无忧。\n商品问答\n买二送一\n会员专享\n商品问答\n直降500元"}], "images": ["images/train_0039.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "满199减50\n假一赔十\n高清4K屏幕，120Hz刷新率，带来极致视觉体验。\n尺码：XL\n人气单品\n即将售罄\n爆款推荐\n领券立减\n智能AI芯片加持，运算速度提升40%，流畅不卡顿。"}], "images": ["images/train_0040.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "材质：纯棉\nIP68级防尘防水，无惧风雨，陪伴每一次冒险。\n爆款推荐\n店长力荐\nCPU：骁龙8 Gen3\n5000mAh大电池，支持120W超级快充，续航无忧。"}], "images": ["images/train_0041.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "积分抵扣\n仅剩3件\n人气单品\n直降500元\n存储：512GB\n更多推荐"}], "images": ["images/train_0042.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "7天无理由退换\n优惠券\n加入购物车\n限时秒杀\n会员专享\n倒计时23:59:59\n爆款推荐\n全网最低价"}], "images": ["images/train_0043.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "会员专享\n领券立减\n假一赔十\n售后无忧\n第二件半价\n全网最低价\n领券立减"}], "images": ["images/train_0044.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "库存紧张\n售后无忧\n售后无忧\n高清4K屏幕，120Hz刷新率，带来极致视觉体验。\n查看详情\n高清4K屏幕，120Hz刷新率，带来极致视觉体验。\n假一赔十\n查看详情\nCPU：骁龙8 Gen3"}], "images": ["images/train_0045.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "满199减50\n尺码：XL\n直降500元\n优惠券"}], "images": ["images/train_0046.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "新品上市\n内存：16GB\n收藏\n内存：16GB\n满199减50\n分享"}], "images": ["images/train_0047.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "爆款推荐\n库存紧张\n查看详情\n高清4K屏幕，120Hz刷新率，带来极致视觉体验。\n通过国家质量认证，符合ISO9001国际标准，安全放心。\n仅剩3件\n爆款推荐"}], "images": ["images/train_0048.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "7天无理由退换\n查看详情\n智能AI芯片加持，运算速度提升40%，流畅不卡顿。\n设计师联名款，融合东方美学与现代工艺，彰显独特品味。\n分享\n店长力荐\n5000mAh大电池，支持120W超级快充，续航无忧。"}], "images": ["images/train_0049.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "IP68级防尘防水，无惧风雨，陪伴每一次冒险。\n库存紧张\n通过国家质量认证，符合ISO9001国际标准，安全放心。\n爆款推荐\n设计师联名款，融合东方美学与现代工艺，彰显独特品味。\n满199减50"}], "images": ["images/train_0050.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "全网最低价\nCPU：骁龙8 Gen3\n存储：512GB\n5000mAh大电池，支持120W超级快充，续航无忧。\n商品问答\n智能AI芯片加持，运算速度提升40%，流畅不卡顿。"}], "images": ["images/train_0051.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "人气单品\n第二件半价\n人气单品\n7天无理由退换\n买二送一\n全网最低价\n积分抵扣"}], "images": ["images/train_0052.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "倒计时23:59:59\n第二件半价\n积分抵扣\n分享\n尺码：XL\n查看详情"}], "images": ["images/train_0053.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "极速发货\n源自德国工艺，传承百年匠心，每一个细节都精益求精。\n人气单品\n重量：200g\n买二送一\n查看详情\n假一赔十"}], "images": ["images/train_0054.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "新品上市\n售后无忧\n智能AI芯片加持，运算速度提升40%，流畅不卡顿。\n假一赔十"}], "images": ["images/train_0055.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "更多推荐\n5000mAh大电池，支持120W超级快充，续航无忧。\nIP68级防尘防水，无惧风雨，陪伴每一次冒险。\n店长力荐\n源自德国工艺，传承百年匠心，每一个细节都精益求精。"}], "images": ["images/train_0056.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "屏幕：6.7英寸\n尺码：XL\n店长力荐\n用户评价\n积分抵扣\n直降500元"}], "images": ["images/train_0057.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "设计师联名款，融合东方美学与现代工艺，彰显独特品味。\n更多推荐\n加入购物车\n智能AI芯片加持，运算速度提升40%，流畅不卡顿。\n立即购买\n直降500元\n屏幕：6.7英寸\n极速发货"}], "images": ["images/train_0058.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "重量：200g\n正品保证\n直降500元\n店长力荐\n会员专享"}], "images": ["images/train_0059.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "店长力荐\n即将售罄\n买二送一\n店长力荐\n颜色：曜石黑\n倒计时23:59:59"}], "images": ["images/train_0060.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "更多推荐\n假一赔十\n收藏\n积分抵扣\n用户评价\n用户评价"}], "images": ["images/train_0061.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "查看详情\n假一赔十\n仅剩3件\n极速发货"}], "images": ["images/train_0062.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "智能AI芯片加持，运算速度提升40%，流畅不卡顿。\n会员专享\n查看详情\n加入购物车"}], "images": ["images/train_0063.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "售后无忧\n用户评价\n收藏\n积分抵扣\n店长力荐"}], "images": ["images/train_0064.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "本产品采用进口原材料，经过108道工序精心打造，品质卓越。\n假一赔十\n商品问答\n第二件半价\n优惠券\n7天无理由退换\n分享"}], "images": ["images/train_0065.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "设计师联名款，融合东方美学与现代工艺，彰显独特品味。\n内存：16GB\n查看详情\n全网最低价\n分享\n通过国家质量认证，符合ISO9001国际标准，安全放心。\n材质：纯棉"}], "images": ["images/train_0066.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "假一赔十\n用户评价\n人气单品\n倒计时23:59:59\nIP68级防尘防水，无惧风雨，陪伴每一次冒险。\n用户评价\n限时秒杀\n智能AI芯片加持，运算速度提升40%，流畅不卡顿。\n直降500元"}], "images": ["images/train_0067.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "包邮到家\n满199减50\n商品问答\n仅剩3件\n分享\n加入购物车\n重量：200g\n爆款推荐"}], "images": ["images/train_0068.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "包邮到家\n限时秒杀\n倒计时23:59:59\n正品保证"}], "images": ["images/train_0069.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "第二件半价\n倒计时23:59:59\n重量：200g\n高清4K屏幕，120Hz刷新率，带来极致视觉体验。\n设计师联名款，融合东方美学与现代工艺，彰显独特品味。"}], "images": ["images/train_0070.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "倒计时23:59:59\n尺码：XL\n正品保证\n假一赔十\n立即购买"}], "images": ["images/train_0071.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "用户评价\n商品问答\n假一赔十\n人气单品\n人气单品\n颜色：曜石黑\n直降500元"}], "images": ["images/train_0072.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "材质：纯棉\n7天无理由退换\n分享\n内存：16GB\n即将售罄\n人气单品\n通过国家质量认证，符合ISO9001国际标准，安全放心。"}], "images": ["images/train_0073.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "售后无忧\n新品上市\n智能AI芯片加持，运算速度提升40%，流畅不卡顿。\n通过国家质量认证，符合ISO9001国际标准，安全放心。\n设计师联名款，融合东方美学与现代工艺，彰显独特品味。\n尺码：XL\n7天无理由退换\n新品上市\n查看详情"}], "images": ["images/train_0074.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "高清4K屏幕，120Hz刷新率，带来极致视觉体验。\n更多推荐\n店长力荐\n立即购买\n爆款推荐\n假一赔十\n收藏"}], "images": ["images/train_0075.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "直降500元\n正品保证\n更多推荐\n颜色：曜石黑\n包邮到家\n更多推荐"}], "images": ["images/train_0076.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "极速发货\n满199减50\n倒计时23:59:59\n设计师联名款，融合东方美学与现代工艺，彰显独特品味。"}], "images": ["images/train_0077.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "源自德国工艺，传承百年匠心，每一个细节都精益求精。\n5000mAh大电池，支持120W超级快充，续航无忧。\n源自德国工艺，传承百年匠心，每一个细节都精益求精。\n正品保证\n买二送一\n颜色：曜石黑\n倒计时23:59:59\n7天无理由退换"}], "images": ["images/train_0078.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "材质：纯棉\n买二送一\n会员专享\nCPU：骁龙8 Gen3\n颜色：曜石黑\n收藏\n积分抵扣\n材质：纯棉"}], "images": ["images/train_0079.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "领券立减\n店长力荐\n源自德国工艺，传承百年匠心，每一个细节都精益求精。\n直降500元\n正品保证\n屏幕：6.7英寸\n优惠券"}], "images": ["images/train_0080.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "新品上市\n新品上市\n爆款推荐\n人气单品\n重量：200g\n满199减50"}], "images": ["images/train_0081.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "新品上市\n倒计时23:59:59\n材质：纯棉\n积分抵扣\n更多推荐\n限时秒杀\n买二送一"}], "images": ["images/train_0082.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "智能AI芯片加持，运算速度提升40%，流畅不卡顿。\n爆款推荐\n智能AI芯片加持，运算速度提升40%，流畅不卡顿。\n立即购买\n人气单品\n买二送一\n智能AI芯片加持，运算速度提升40%，流畅不卡顿。"}], "images": ["images/train_0083.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "用户评价\n售后无忧\n即将售罄\n新品上市\n买二送一\n加入购物车"}], "images": ["images/train_0084.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "极速发货\n倒计时23:59:59\n屏幕：6.7英寸\n优惠券"}], "images": ["images/train_0085.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "仅剩3件\n用户评价\n限时秒杀\n屏幕：6.7英寸\nIP68级防尘防水，无惧风雨，陪伴每一次冒险。\n店长力荐\n满199减50"}], "images": ["images/train_0086.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "本产品采用进口原材料，经过108道工序精心打造，品质卓越。\n极速发货\n限时秒杀\n更多推荐\n会员专享\n极速发货\n商品问答\n领券立减"}], "images": ["images/train_0087.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "包邮到家\n新品上市\n内存：16GB\n会员专享\n满199减50\n设计师联名款，融合东方美学与现代工艺，彰显独特品味。\n限时秒杀\n售后无忧"}], "images": ["images/train_0088.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "屏幕：6.7英寸\n颜色：曜石黑\n设计师联名款，融合东方美学与现代工艺，彰显独特品味。\n颜色：曜石黑\n会员专享\n会员专享\n人气单品\n存储：512GB"}], "images": ["images/train_0089.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "仅剩3件\n更多推荐\nIP68级防尘防水，无惧风雨，陪伴每一次冒险。\n分享\n全网最低价"}], "images": ["images/train_0090.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "尺码：XL\n收藏\n第二件半价\n爆款推荐\n限时秒杀"}], "images": ["images/train_0091.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "商品问答\nCPU：骁龙8 Gen3\n更多推荐\n5000mAh大电池，支持120W超级快充，续航无忧。\n颜色：曜石黑\nIP68级防尘防水，无惧风雨，陪伴每一次冒险。\n智能AI芯片加持，运算速度提升40%，流畅不卡顿。\n积分抵扣\n重量：200g"}], "images": ["images/train_0092.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "设计师联名款，融合东方美学与现代工艺，彰显独特品味。\n智能AI芯片加持，运算速度提升40%，流畅不卡顿。\n通过国家质量认证，符合ISO9001国际标准，安全放心。\n极速发货\n满199减50\n满199减50\n极速发货"}], "images": ["images/train_0093.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "满199减50\n设计师联名款，融合东方美学与现代工艺，彰显独特品味。\n收藏\n重量：200g\n更多推荐\n直降500元\n内存：16GB\n重量：200g"}], "images": ["images/train_0094.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "售后无忧\nCPU：骁龙8 Gen3\n高清4K屏幕，120Hz刷新率，带来极致视觉体验。\n材质：纯棉\n积分抵扣\n加入购物车"}], "images": ["images/train_0095.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "假一赔十\n7天无理由退换\n商品问答\n正品保证\n限时秒杀\n极速发货\n更多推荐\n用户评价"}], "images": ["images/train_0096.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "领券立减\n库存紧张\n商品问答\n设计师联名款，融合东方美学与现代工艺，彰显独特品味。\n全网最低价\n商品问答\n颜色：曜石黑\n设计师联名款，融合东方美学与现代工艺，彰显独特品味。"}], "images": ["images/train_0097.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "材质：纯棉\n极速发货\n立即购买\n尺码：XL\n存储：512GB\n立即购买\n限时秒杀"}], "images": ["images/train_0098.jpg"]}
+{"messages": [{"role": "user", "content": "<image>OCR:"}, {"role": "assistant", "content": "分享\n积分抵扣\n本产品采用进口原材料，经过108道工序精心打造，品质卓越。\n更多推荐\n商品问答\n人气单品\n屏幕：6.7英寸"}], "images": ["images/train_0099.jpg"]}
