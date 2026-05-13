@@ -6,7 +6,7 @@
 set -e
 
 # ========== 配置项 ==========
-MODEL_NAME_OR_PATH="PaddlePaddle/PaddleOCR-VL-1.5"
+MODEL_NAME_OR_PATH="../models/PaddlePaddle/PaddleOCR-VL"
 TRAIN_DATASET="./data/hybrid/train.jsonl"
 EVAL_DATASET="./data/hybrid/val.jsonl"
 

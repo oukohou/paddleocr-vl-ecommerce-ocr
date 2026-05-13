@@ -16,7 +16,7 @@ custom_register_path: ./scripts/paddleocr_vl_v15_template.py
 
 
 ### model
-model_name_or_path: PaddlePaddle/PaddleOCR-VL-1.5
+model_name_or_path: ../models/PaddlePaddle/PaddleOCR-VL
 _attn_implementation: flashmask
 lora: true
 lora_rank: 8
