@@ -7,8 +7,8 @@ set -e
 
 # ========== 配置项 ==========
 MODEL_NAME_OR_PATH="PaddlePaddle/PaddleOCR-VL-1.5"
-TRAIN_DATASET="./data/synthetic/train.jsonl"
-EVAL_DATASET="./data/synthetic/val.jsonl"
+TRAIN_DATASET="./data/hybrid/train.jsonl"
+EVAL_DATASET="./data/hybrid/val.jsonl"
 
 # 选择训练模式: lora | full
 MODE="${1:-lora}"

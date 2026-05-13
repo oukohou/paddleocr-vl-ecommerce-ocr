@@ -1,319 +1,418 @@
-# 8x H100 服务器训练操作手册
+# PaddleOCR-VL 服务器训练完整指南
 
-> 适用环境：Linux + NVIDIA H100 + CUDA 12.x
-
----
-
-## 第一步：登录服务器并检查环境
-
-```bash
-# SSH登录（替换为你的服务器地址）
-ssh username@your-h100-server-ip
-
-# 检查GPU状态
-nvidia-smi
-
-# 应该看到8张H100，显存约80GB/卡
-
-# 检查Python版本（要求3.9-3.11）
-python --version
-
-# 检查PaddlePaddle是否已安装
-python -c "import paddle; print(paddle.__version__); print(paddle.device.cuda.device_count())"
-```
-
-**如果上面PaddlePaddle检查通过且能看到8张卡，跳到第三步。**
+> 本文档面向 **8x H100 80GB** 共享服务器环境。  
+> **铁律：每人独立 conda 环境，绝不污染他人环境。**
 
 ---
 
-## 第二步：安装环境（如缺少）
+## 一、项目现状速览
 
-### 2.1 创建虚拟环境
+当前仓库已具备：
+
+| 组件 | 状态 | 路径 |
+|:---|:---|:---|
+| 混合合成数据 | **140张**（train 100 / val 20 / test 20） | `data/hybrid/` |
+| AI背景素材 | 10张 | `data/hybrid/ai_backgrounds/` |
+| LoRA训练配置 | 已适配小数据集 | `configs/ecommerce_ocr_lora.yaml` |
+| 全参训练配置 | 已适配小数据集 | `configs/ecommerce_ocr_full.yaml` |
+| 自定义模板 | 已注册 PaddleOCR-VL-1.5 chat_template | `scripts/paddleocr_vl_v15_template.py` |
+| 评估脚本 | 支持多卡分布式 NED 评估 | `scripts/eval.py` |
+| 一键训练脚本 | 自动检测 GPU 数量 | `scripts/train.sh` |
+
+模型：**PaddleOCR-VL-1.5**（0.9B 参数，OmniDocBench v1.5 SOTA）  
+训练框架：**PaddleFormers**（百度自研，支持 LoRA / Full / DPO 等）
+
+---
+
+## 二、环境配置（只需一次）
+
+### 2.1 创建独立 Conda 环境
 
 ```bash
-# 如果你有conda
-conda create -n paddleocr python=3.10 -y
-conda activate paddleocr
+# 创建环境（Python 3.10 是 PaddleFormers 官方推荐版本）
+conda create -n paddleocr-vl python=3.10 -y
 
-# 如果没有conda，用venv
-python -m venv ~/venvs/paddleocr
-source ~/venvs/paddleocr/bin/activate
+# 激活环境
+conda activate paddleocr-vl
+
+# 验证路径（必须不是 base 环境）
+which python
+# 预期输出: /home/<user>/miniconda3/envs/paddleocr-vl/bin/python
 ```
 
-### 2.2 安装 PaddlePaddle GPU版
+### 2.2 安装 PaddlePaddle GPU
+
+根据服务器 CUDA 版本选择：
 
 ```bash
-# H100需要CUDA 12.x版本
-# 官网命令（确认你的CUDA版本）
-python -m pip install paddlepaddle-gpu==3.0.0 -i https://pypi.tuna.tsinghua.edu.cn/simple
+# 方式1：CUDA 12.3（H100/A100 推荐）
+pip install paddlepaddle-gpu==3.0.0 -i https://www.paddlepaddle.org.cn/packages/stable/cu123/
 
-# 验证安装
-python -c "import paddle; paddle.utils.run_check()"
+# 方式2：CUDA 11.8
+pip install paddlepaddle-gpu==3.0.0 -i https://www.paddlepaddle.org.cn/packages/stable/cu118/
+
+# 验证
+python -c "import paddle; print(paddle.__version__); paddle.utils.run_check()"
 ```
-
-> 如果`paddle.utils.run_check()`通过，说明PaddlePaddle+GPU正常。
 
 ### 2.3 安装 PaddleFormers
 
 ```bash
-# 从官方仓库源码安装（因为paddleformers可能未发布到PyPI）
-cd ~/projects  # 或你的工作目录
-git clone --depth 1 https://github.com/PaddlePaddle/PaddleFormers.git paddleformers-guide
-cd paddleformers-guide
-pip install -e .
+# 从 PyPI 安装最新版
+pip install paddleformers
 
-# 验证安装
+# 验证
 paddleformers-cli --help
 ```
 
 ### 2.4 安装其他依赖
 
 ```bash
-pip install Pillow numpy tqdm python-Levenshtein
+pip install Pillow numpy tqdm Levenshtein visualdl
+
+# 可选：Triton Kernel 加速（仅限 Ampere/Hopper GPU）
+pip install triton==3.6.0 use-triton-in-paddle==0.1.0
 ```
 
 ---
 
-## 第三步：上传项目代码
+## 三、代码与数据准备
 
-**推荐方式A：GitHub（最干净）**
+### 3.1 获取代码
 
-在你的本地Windows机器上：
+**方式A：从 GitHub Clone**
+
 ```bash
-# 初始化仓库并推送到GitHub
+cd ~  # 或你的项目目录
+git clone https://github.com/oukohou/paddleocr-vl-ecommerce-ocr.git
+cd paddleocr-vl-ecommerce-ocr
+```
+
+**方式B：从本机上传（如果服务器无法访问 GitHub）**
+
+```bash
+# 在本机打包
 cd E:/interest/contest/百度/paddleOCR-VL
-git init
-git add .
-git commit -m "init: PaddleOCR-VL e-commerce OCR project"
-# 去GitHub创建一个仓库，然后：
-git remote add origin https://github.com/oukohou/paddleocr-vl-ecommerce.git
-git push -u origin main
+zip -r paddleocr-vl-upload.zip . -x "*.git*" -x "paddleformers-guide/*"
+
+# 上传到服务器
+scp paddleocr-vl-upload.zip user@server_ip:/home/user/
+
+# 在服务器解压
+ssh user@server_ip "cd /home/user && unzip paddleocr-vl-upload.zip -d paddleocr-vl-ecommerce-ocr"
 ```
 
-在服务器上：
+### 3.2 数据确认
+
 ```bash
-cd ~/projects
-git clone https://github.com/oukohou/paddleocr-vl-ecommerce.git
-cd paddleocr-vl-ecommerce
+cd paddleocr-vl-ecommerce-ocr
+
+# 检查数据规模
+wc -l data/hybrid/*.jsonl
+# 预期: train 100 / val 20 / test 20
+
+ls data/hybrid/images/ | wc -l
+# 预期: 140
+
+# 检查单条数据格式
+head -n 1 data/hybrid/train.jsonl | python -m json.tool
 ```
 
-**方式B：直接打包上传（如果服务器在内网/无GitHub）**
-
-本地Windows PowerShell：
-```powershell
-# 打包项目（排除大文件）
-cd "E:\interest\contest\百度\paddleOCR-VL"
-Compress-Archive -Path configs,scripts,docs,README.md,requirements.txt -DestinationPath paddleocr-vl.zip -Force
+数据格式示例：
+```json
+{
+    "messages": [
+        {"role": "user", "content": "<image>OCR:"},
+        {"role": "assistant", "content": "限时秒杀\n直降500元\n全网最低价"}
+    ],
+    "images": ["images/train_0000.jpg"]
+}
 ```
 
-服务器上：
+### 3.3 如需在服务器上扩充数据
+
 ```bash
-# 用scp/rsync上传
-cd ~/projects
-unzip paddleocr-vl.zip -d paddleocr-vl-ecommerce
-cd paddleocr-vl-ecommerce
+conda activate paddleocr-vl
+cd paddleocr-vl-ecommerce-ocr
+
+# 追加生成（不覆盖已有数据）
+python scripts/expand_hybrid_data.py
 ```
 
 ---
 
-## 第四步：准备数据
+## 四、训练配置解析
 
-**不要在Windows生成后再传到服务器！** 直接在服务器上重新生成，22秒搞定：
+### 4.1 LoRA 配置（推荐）
 
-```bash
-cd ~/projects/paddleocr-vl-ecommerce
+`configs/ecommerce_ocr_lora.yaml` 关键参数：
 
-# 生成合成数据集（600张，训练400+验证50+测试50）
-python scripts/generate_synthetic_data.py \
-    --num_samples 600 \
-    --output_dir ./data/synthetic \
-    --split auto
+| 参数 | 值 | 说明 |
+|:---|:---|:---|
+| `train_dataset_path` | `./data/hybrid/train.jsonl` | 训练数据 |
+| `eval_dataset_path` | `./data/hybrid/val.jsonl` | 验证数据 |
+| `max_seq_len` | 4096 | 合成数据短，4K 足够省显存 |
+| `lora` | true | 启用 LoRA |
+| `lora_rank` | 8 | 低秩维度 |
+| `num_train_epochs` | -1 | 用 max_steps 控制 |
+| `max_steps` | **100** | 小数据集，100 步约等于 100 个 epoch |
+| `eval_steps` | **10** | 每 10 步验证 |
+| `save_steps` | **20** | 每 20 步保存 checkpoint |
+| `per_device_train_batch_size` | 16 | 每卡 batch |
+| `learning_rate` | 5.0e-4 | LoRA 专用较高学习率 |
+| `bf16` | true | H100 支持 bf16，加速训练 |
+| `sharding` | stage1 | ZeRO-1 优化器状态分片 |
 
-# 查看生成结果
-ls -l data/synthetic/images/ | head
-cat data/synthetic/train.jsonl | head -1 | python -m json.tool
+### 4.2 为什么要这样调参？
+
+当前只有 **100 张训练图**，8 卡 x 16 batch = 128 每步：
+- 每步会重采样 28 张图（128 - 100）
+- 100 步 ≈ 100 个 epoch，足够小数据集收敛
+- eval_steps=10 意味着每 10 个 epoch 验证一次，频度合理
+
+如果你后续扩充到更多数据，请调整：
+```yaml
+max_steps: 500        # 数据多了增加步数
+eval_steps: 50
+save_steps: 100
 ```
 
 ---
 
-## 第五步：启动训练
+## 五、启动训练
 
-### 5.1 LoRA微调（推荐，1小时内完成）
+### 5.1 方式一：一键脚本（推荐）
 
 ```bash
-cd ~/projects/paddleocr-vl-ecommerce
+conda activate paddleocr-vl
+cd paddleocr-vl-ecommerce-ocr
 
-# 给脚本执行权限
-chmod +x scripts/train.sh
-
-# 启动训练
+# LoRA 微调
 bash scripts/train.sh lora
-```
 
-**预期输出：**
-```
-Training mode: LoRA
-Detected GPUs: 8 (IDs: 0,1,2,3,4,5,6,7)
-Config: ./configs/ecommerce_ocr_lora.yaml
-Output: ./outputs/ecommerce-ocr-lora
-...
-# 训练过程中会打印loss
-```
-
-### 5.2 全参微调（效果更好，时间更长）
-
-```bash
+# 全参微调（显存占用更高，效果可能更好）
 bash scripts/train.sh full
 ```
 
----
+`train.sh` 会自动检测可用 GPU 数量并分配。
 
-## 第六步：训练监控
-
-### 方式1：查看日志
-
-训练日志会实时打印到终端。也可以在另一个终端查看VisualDL：
+### 5.2 方式二：直接命令（更灵活）
 
 ```bash
-# 另开一个终端，激活同一环境
-conda activate paddleocr
-cd ~/projects/paddleocr-vl-ecommerce
+conda activate paddleocr-vl
+cd paddleocr-vl-ecommerce-ocr
 
-# 启动可视化（端口8084，可改）
+CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 \
+paddleformers-cli train configs/ecommerce_ocr_lora.yaml \
+    model_name_or_path=PaddlePaddle/PaddleOCR-VL-1.5 \
+    train_dataset_path=./data/hybrid/train.jsonl \
+    eval_dataset_path=./data/hybrid/val.jsonl \
+    pre_alloc_memory=26
+```
+
+### 5.3 方式三：单卡调试（排查问题时用）
+
+```bash
+CUDA_VISIBLE_DEVICES=0 \
+paddleformers-cli train configs/ecommerce_ocr_lora.yaml \
+    model_name_or_path=PaddlePaddle/PaddleOCR-VL-1.5 \
+    train_dataset_path=./data/hybrid/train.jsonl \
+    eval_dataset_path=./data/hybrid/val.jsonl \
+    per_device_train_batch_size=4 \
+    pre_alloc_memory=20
+```
+
+### 5.4 后台运行（tmux）
+
+```bash
+tmux new -s paddleocr-train
+# 在 tmux 中执行训练命令
+# 按 Ctrl+B 然后按 D  detach（会话在后台继续）
+
+# 重新 attach
+tmux attach -t paddleocr-train
+```
+
+---
+
+## 六、训练监控
+
+### 6.1 VisualDL 实时看板
+
+另开一个终端：
+
+```bash
+conda activate paddleocr-vl
 visualdl --logdir ./outputs/ecommerce-ocr-lora/visualdl_logs/ --port 8084
 
-# 然后用浏览器访问：http://your-server-ip:8084
+# 浏览器访问
+# http://<服务器IP>:8084
 ```
 
-### 方式2：用tmux/screen挂后台
+### 6.2 命令行实时看日志
 
 ```bash
-# 创建会话
-tmux new -s paddleocr_train
-
-# 在会话中启动训练
-bash scripts/train.sh lora
-
-# 按 Ctrl+B 然后 D  detach（训练继续在后台跑）
-
-# 重新连接
-tmux attach -t paddleocr_train
+tail -f ./outputs/ecommerce-ocr-lora/visualdl_logs/vdlrecords.*.log
 ```
+
+### 6.3 预期训练表现
+
+| 指标 | 基线 | 目标 |
+|:---|:---|:---|
+| 训练时间 | - | ~5-10 分钟（100 步） |
+| 单步耗时 | - | ~3-5 秒 |
+| 验证 NED | ~0.93 | < 0.3 |
 
 ---
 
-## 第七步：训练完成后评估
+## 七、模型导出与评估
+
+### 7.1 LoRA 权重合并
+
+训练完成后，LoRA 权重需要和基模型合并才能用于推理：
 
 ```bash
-# 单卡评估即可
-cd ~/projects/paddleocr-vl-ecommerce
+CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 \
+paddleformers-cli export configs/ecommerce_ocr_lora.yaml \
+    model_name_or_path=PaddlePaddle/PaddleOCR-VL-1.5 \
+    output_dir=./outputs/ecommerce-ocr-lora
 
-python scripts/eval.py \
-    --model ./outputs/ecommerce-ocr-lora \
-    --data ./data/synthetic/test.jsonl \
-    --output ./eval_results.jsonl \
-    --device gpu
-
-# 查看结果
-head eval_results.jsonl
+# 合并后的完整模型在 ./outputs/ecommerce-ocr-lora/export/
 ```
 
-**预期指标：**
-- 基线模型（未微调）NED: ~0.5-0.8
-- LoRA微调后 NED: 目标 < 0.1
-
----
-
-## 第八步：推理测试
+### 7.2 测试集评估
 
 ```bash
-# 单张图片推理
+CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 \
+python -m paddle.distributed.launch --log_dir ./log \
+    scripts/eval.py \
+    --model_name_or_path ./outputs/ecommerce-ocr-lora/export \
+    --data_path ./data/hybrid/test.jsonl \
+    --output_path ./eval_results.jsonl
+```
+
+评估指标：**NED（归一化 Levenshtein 编辑距离）**，越低越好。
+
+### 7.3 单张图片推理测试
+
+```bash
 python scripts/inference.py \
-    --model ./outputs/ecommerce-ocr-lora \
-    --image ./data/synthetic/images/synthetic_00001.jpg
+    --model ./outputs/ecommerce-ocr-lora/export \
+    --image ./data/hybrid/images/test_0000.jpg
 ```
 
 ---
 
-## 常见问题排查
+## 八、多人共用服务器守则
 
-### Q1: `paddleformers-cli: command not found`
+| 规则 | 具体操作 |
+|:---|:---|
+| **一人一环境** | 每人独立 `conda env`，禁止在 base 或他人环境中装包 |
+| **显存隔离** | 用 `CUDA_VISIBLE_DEVICES` 指定自己的 GPU，不抢占他人卡 |
+| **目录隔离** | 输出目录带个人标识，如 `./outputs/oukoh-ecommerce-ocr/` |
+| **进程管理** | 用 `tmux`/`screen`，detach 后不影响他人 |
+| **磁盘清理** | 训练完及时删 checkpoint 中间文件，释放空间 |
+| **网络隔离** | 模型下载缓存各自独立，不占用他人带宽 |
 
+---
+
+## 九、常见问题速查
+
+### Q1: `paddleformers-cli` 命令找不到
 ```bash
-# 检查是否在正确的conda/venv环境中
-which python
-
-# 重新安装paddleformers
-cd paddleformers-guide
-pip install -e .
+conda activate paddleocr-vl
+which paddleformers-cli
+# 若找不到: pip install paddleformers
 ```
 
-### Q2: 模型下载慢/失败
-
-PaddleOCR-VL-1.5模型会自动从HuggingFace下载。如果服务器网络慢：
-
+### Q2: 模型下载慢 / 连不上 HuggingFace
 ```bash
-# 方案1：设置HF镜像
+# 设置镜像
 export HF_ENDPOINT=https://hf-mirror.com
 
-# 方案2：本地下载后传到服务器
-# 在能访问外网的机器上：
-python -c "from transformers import AutoModel; AutoModel.from_pretrained('PaddlePaddle/PaddleOCR-VL-1.5')"
-# 然后打包 ~/.cache/huggingface/ 传到服务器
+# 或预先下载模型传到服务器
+# 从本机: scp -r ~/.paddlenlp/models/PaddlePaddle/PaddleOCR-VL-1.5 user@server:/path/
 ```
 
-### Q3: CUDA out of memory
-
+### Q3: 显存 OOM
 ```bash
-# 减小batch size和预分配显存
-# 修改 configs/ecommerce_ocr_lora.yaml：
-# per_device_train_batch_size: 8  (原来是16)
-# per_device_eval_batch_size: 8
-
-# 或增大gradient_accumulation_steps:
-# gradient_accumulation_steps: 2
+# 减小 batch_size，增大梯度累积
+per_device_train_batch_size: 8
+gradient_accumulation_steps: 2
+# 或减小 max_seq_len 到 2048
 ```
 
-### Q4: 训练中断恢复
-
+### Q4: 训练报 `No module named 'paddleformers'`
 ```bash
-# LoRA训练支持从checkpoint恢复
-# 找到最新的checkpoint目录，例如：
-# ./outputs/ecommerce-ocr-lora/checkpoint-400
+conda activate paddleocr-vl  # 先激活环境！
+pip install paddleformers
+```
 
-# 修改train.sh，添加resume参数：
-paddleformers-cli train "$CONFIG" \
-    model_name_or_path="$MODEL_NAME_OR_PATH" \
-    train_dataset_path="$TRAIN_DATASET" \
-    eval_dataset_path="$EVAL_DATASET" \
-    pre_alloc_memory="$PRE_ALLOC_MEMORY" \
-    resume_from_checkpoint=./outputs/ecommerce-ocr-lora/checkpoint-400
+### Q5: 中文显示乱码（评估时）
+```bash
+# 服务器安装中文字体
+sudo apt-get install fonts-wqy-zenhei
+# 或从本机复制
+scp C:/Windows/Fonts/simhei.ttf user@server:/tmp/
+```
+
+### Q6: 训练中断如何恢复？
+```bash
+# PaddleFormers 会自动从最新的 checkpoint 恢复
+# 只要 output_dir 里的 checkpoint 文件还在，重新运行训练命令即可
+CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 \
+paddleformers-cli train configs/ecommerce_ocr_lora.yaml \
+    model_name_or_path=./outputs/ecommerce-ocr-lora \
+    train_dataset_path=./data/hybrid/train.jsonl \
+    eval_dataset_path=./data/hybrid/val.jsonl \
+    pre_alloc_memory=26
 ```
 
 ---
 
-## 一键启动（如果你环境已配好）
+## 十、提交比赛结果
+
+训练完成后，你需要提交：
+
+1. **模型权重**（LoRA 合并后的完整模型）
+2. **评估结果**（`eval_results.jsonl`）
+3. **训练日志**（VisualDL 截图或日志文件）
+
+提交方式请参考比赛官方文档。通常需要：
+- 将模型权重打包上传
+- 或在服务器上直接运行官方评测脚本
+
+---
+
+## 附录：快速命令速查表
 
 ```bash
-# 从登录服务器到启动训练，总共5条命令：
-ssh username@your-server-ip
-conda activate paddleocr
-cd ~/projects/paddleocr-vl-ecommerce
-python scripts/generate_synthetic_data.py --num_samples 600 --output_dir ./data/synthetic --split auto
-bash scripts/train.sh lora
+# ===== 环境 =====
+conda create -n paddleocr-vl python=3.10 -y
+conda activate paddleocr-vl
+pip install paddlepaddle-gpu==3.0.0 -i https://www.paddlepaddle.org.cn/packages/stable/cu123/
+pip install paddleformers Pillow numpy tqdm Levenshtein visualdl
+
+# ===== 训练 =====
+bash scripts/train.sh lora          # 一键 LoRA
+bash scripts/train.sh full          # 一键 Full
+
+# ===== 监控 =====
+visualdl --logdir ./outputs/ecommerce-ocr-lora/visualdl_logs/ --port 8084
+
+# ===== 导出 =====
+paddleformers-cli export configs/ecommerce_ocr_lora.yaml \
+    model_name_or_path=PaddlePaddle/PaddleOCR-VL-1.5 \
+    output_dir=./outputs/ecommerce-ocr-lora
+
+# ===== 评估 =====
+python -m paddle.distributed.launch --log_dir ./log \
+    scripts/eval.py \
+    --model_name_or_path ./outputs/ecommerce-ocr-lora/export \
+    --data_path ./data/hybrid/test.jsonl \
+    --output_path ./eval_results.jsonl
 ```
 
 ---
 
-## 下一步行动检查清单
-
-- [ ] 服务器能SSH登录且`nvidia-smi`显示8张H100
-- [ ] PaddlePaddle已安装且`paddle.utils.run_check()`通过
-- [ ] PaddleFormers已安装且`paddleformers-cli`可用
-- [ ] 项目代码已传到服务器
-- [ ] 合成数据生成成功（`data/synthetic/train.jsonl`存在）
-- [ ] 训练成功启动且loss在下降
-- [ ] 评估指标NED < 0.1
-- [ ] 推理脚本能跑通
-- [ ] GitHub仓库已开源且README完整
-- [ ] 邮件提交到 `ext_paddle_oss@baidu.com`
+*最后更新：2026-05-13 | 数据集：140 张混合合成图 | 模型：PaddleOCR-VL-1.5*
